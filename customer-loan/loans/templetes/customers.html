@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Customers & Loans</title>
+</head>
+<body>
+    <h1>Customers & Loans</h1>
+    {% for customer in customers %}
+        <h2>{{ customer.name }} ({{ customer.email }})</h2>
+        <ul>
+            {% for loan in customer.loans.all %}
+                <li>
+                    Loan Amount: ${{ loan.amount }} - Balance: ${{ loan.balance }} - Status: {{ loan.status }}
+                    {% if loan.status == 'Pending' %}
+                        <a href="{% url 'make-payment' loan.id %}">Make Payment</a>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    {% endfor %}
+</body>
+</html>
