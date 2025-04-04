@@ -25,3 +25,16 @@ class Loan(models.Model):
 
     def __str__(self):
         return f"Loan #{self.pk} for {self.customer.name}"
+
+class Payment(models.Model):
+    PAYMENT_STATUS_CHOICES = [
+        ('successful', 'Successful'),
+        ('failed', 'Failed'),
+        ('pending', 'Pending'),
+    ]
+    
+    loan = models.ForeignKey(Loan, related_name='payments', on_delete=models.CASCADE)
+    amount_paid = models.DecimalField(max_digits=10, decimal_places=2)
+    payment_date = models.DateTimeField()
+    payment_method = models.CharField(max_length=50) 
+    payment_status = models.CharField(max_length=10, choices=PAYMENT_STATUS_CHOICES, default='successful')
