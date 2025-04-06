@@ -49,5 +49,5 @@ class PaymentViewSet(viewsets.ModelViewSet):
      user = self.request.user
      if user.is_staff:
         return Payment.objects.all()  
-        return Payment.objects.filter(loan__user=user) 
+        return Payment.objects.filter(loan__customer=user) 
  
